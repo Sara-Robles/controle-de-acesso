@@ -21,26 +21,29 @@ public class Interface extends JFrame {
     private JPasswordField txtSenha;
     private JButton btnCadastrar, btnAlterar, btnExcluir, btnLimpar;
     private JTextArea txtMensagem;
+    private Color Brown = new Color(228, 192, 135);
+    private Color Beige = new Color(246, 239, 189);
 
     //Construtor (contém os componentes, suas propriedades e comportamentos)
     public Interface() {
         setSize(850, 400);
-        setTitle("Cadastro de Usuário");
+        setTitle("Cadastro de Usuários");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Painel Principal
         pnl = new JPanel();
         pnl.setBorder(new EmptyBorder(5, 5, 5, 5));
+        pnl.setBackground(Brown);
         setContentPane(pnl);
         pnl.setLayout(null);
 
         lblTitulo = new JLabel("Cadastro de Usuários");
-        lblTitulo.setFont(new Font("Arial", Font.PLAIN, 22));
+        lblTitulo.setFont(new Font("Segoe UI", Font.PLAIN, 22));
         lblTitulo.setBounds(280, 20, 300, 30);
         pnl.add(lblTitulo);
 
         lblNome = new JLabel("Nome Completo:");
-        lblNome.setFont(new Font("Arial", Font.PLAIN, 16));
+        lblNome.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         lblNome.setBounds(30, 70, 200, 30);
         pnl.add(lblNome);
 
@@ -51,7 +54,7 @@ public class Interface extends JFrame {
         txtNome.setColumns(10);
 
         lblSenha = new JLabel("Senha de 6 Dígitos:");
-        lblSenha.setFont(new Font("Arial", Font.PLAIN, 16));
+        lblSenha.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         lblSenha.setBounds(30, 120, 200, 30);
         pnl.add(lblSenha);
 
@@ -69,6 +72,7 @@ public class Interface extends JFrame {
         pnl.add(txtMensagem);
 
         btnCadastrar = new JButton("Cadastrar Novo Usuário");
+        btnCadastrar.setBackground(Beige);
         btnCadastrar.setHorizontalTextPosition(SwingConstants.RIGHT);
         btnCadastrar.setVerticalTextPosition(SwingConstants.CENTER);
         btnCadastrar.setBounds(30, 300, 170, 40);
@@ -83,6 +87,7 @@ public class Interface extends JFrame {
         btnAlterar = new JButton("Alterar Senha");
         btnAlterar.setHorizontalTextPosition(SwingConstants.RIGHT);
         btnAlterar.setVerticalTextPosition(SwingConstants.CENTER);
+        btnAlterar.setBackground(Beige);
         btnAlterar.setBounds(230, 300, 170, 40);
         btnAlterar.addActionListener(new ActionListener() {
             @Override
@@ -95,6 +100,7 @@ public class Interface extends JFrame {
         btnExcluir = new JButton("Excluir Usuário");
         btnExcluir.setHorizontalTextPosition(SwingConstants.RIGHT);
         btnExcluir.setVerticalTextPosition(SwingConstants.CENTER);
+        btnExcluir.setBackground(Beige);
         btnExcluir.setBounds(430, 300, 170, 40);
         btnExcluir.addActionListener(new ActionListener() {
             @Override
@@ -107,6 +113,7 @@ public class Interface extends JFrame {
         btnLimpar = new JButton("Limpar Campos");
         btnLimpar.setHorizontalTextPosition(SwingConstants.RIGHT);
         btnLimpar.setVerticalTextPosition(SwingConstants.CENTER);
+        btnLimpar.setBackground(Beige);
         btnLimpar.setBounds(630, 300, 170, 40);
         btnLimpar.addActionListener(new ActionListener() {
             @Override
@@ -153,5 +160,6 @@ public class Interface extends JFrame {
                 }
             }
         });
+
     }
 }
