@@ -1,4 +1,4 @@
-package br.edu.fatec.model;
+package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.fatec.util.Usuario;
-import br.edu.fatec.util.ConnectionFactory;
+import util.Usuario;
 
 public class UsuarioDAO {
     private Connection conn;
@@ -17,7 +16,7 @@ public class UsuarioDAO {
     private Usuario usuario;
 
     public UsuarioDAO() throws Exception {
-        // chama a classe ConnectionFactory e estabelece uma conexão
+        // Abre conexão
         try {
             this.conn = ConnectionFactory.getConnection();
         } catch (Exception e) {
@@ -25,28 +24,28 @@ public class UsuarioDAO {
         }
     }
 
-    //CRUD:
+    // CRUD
 
-    //CREATE
+    // CREATE
     public void create(Usuario usuario) throws Exception {
-        if (usuario == null)
+    	if (usuario == null)
             throw new Exception("O valor passado não pode ser nulo.");
         try {
 
-            String SQL = "INSERT INTO tb_cadastros (nome, senha) values (?, ?)";
-            conn = this.conn;
+            String SQL = "INSERT INTO tb_usuario (cpf, nome, senha) VALUES (?, ?, ?)";
+            
             ps = conn.prepareStatement(SQL);
-            ps.setString(1, usuario.getNome());
-            ps.setString(2, usuario.getSenha());
+            ps.setString(1, usuario.getCpf());
+            ps.setString(2, usuario.getNome());
+            ps.setString(3, usuario.getSenha());
             ps.executeUpdate();
 
         } catch (SQLException sqle) {
-
-            throw new Exception("Erro ao inserir dados " + sqle);
-
+            throw new Exception("Erro ao inserir dados: " + sqle);
         } finally {
             ConnectionFactory.closeConnection(conn, ps);
         }
+        
     }
 
     // UPDATE
@@ -54,54 +53,67 @@ public class UsuarioDAO {
         if (usuario == null)
             throw new Exception("O valor passado nao pode ser nulo.");
         try {
-            String SQL = "UPDATE tb_cadastros SET nome=?, senha=? WHERE id = ?";
+            String SQL = "UPDATE tb_usuario SET nome=?, senha=? WHERE cpf=?";
+            
             ps = conn.prepareStatement(SQL);
             ps.setString(1, usuario.getNome());
             ps.setString(2, usuario.getSenha());
-            ps.setInt(3, usuario.getId());
+            ps.setString(3, usuario.getCpf());
             ps.executeUpdate();
+            
         } catch (SQLException sqle) {
-            throw new Exception("Erro ao alterar dados " + sqle);
+            throw new Exception("Erro ao alterar dados: " + sqle);
         } finally {
             ConnectionFactory.closeConnection(conn, ps);
         }
     }
 
     // DELETE
-    public void delete(Usuario usuario) throws Exception {
-        if (usuario == null)
+    public int delete(String cpf) throws Exception {
+    	int result;
+        if (cpf == null)
             throw new Exception("O valor passado nao pode ser nulo.");
+        
         try {
-            String SQL = "DELETE FROM tb_cadastros WHERE id = ?";
-            conn = this.conn;
+            String SQL = "DELETE FROM tb_usuario WHERE cpf=?";
+            
             ps = conn.prepareStatement(SQL);
-            ps.setInt(1, usuario.getId());
-            ps.executeUpdate();
+            ps.setString(1, cpf);
+            result = ps.executeUpdate();
+            
+            if (result == 0) {
+                throw new Exception("Nenhum usuário encontrado para exclusão.");
+            }
+            
         } catch (SQLException sqle) {
-            throw new Exception("Erro ao excluir dados " + sqle);
+            throw new Exception("Erro ao excluir dados: " + sqle);
         } finally {
             ConnectionFactory.closeConnection(conn, ps);
         }
+        return result;
     }
 
     // READ
-    public Usuario read(String nome) throws Exception {
+    public Usuario read(String cpf) throws Exception {
         try {
-            String SQL = "SELECT * FROM tb_cadastros WHERE nome=?";
+            String SQL = "SELECT * FROM tb_usuario WHERE cpf=?";
+            
             ps = conn.prepareStatement(SQL);
-            ps.setString(1, nome);
-            rs = ps.executeQuery(); //Classe result set para pegar campos existentes
+            ps.setString(1, cpf);
+            rs = ps.executeQuery(); // Classe ResultSet para pegar campos existentes
+            
             if (rs.next()) {
-                int id = rs.getInt(1);
-                String senha = rs.getString(2);
-                nome = rs.getString(3);
-
-
-                usuario = new Usuario(id, nome, senha);
+                String nome = rs.getString("nome");
+                String senha = rs.getString("senha");
+                usuario = new Usuario(cpf, nome, senha);
+            } else {
+                throw new Exception("Usuário não encontrado.");
             }
+           
             return usuario;
+            
         } catch (SQLException sqle) {
-            throw new Exception(sqle);
+        	throw new Exception("Erro ao procurar usuario: " + sqle.getMessage());
         } finally {
             ConnectionFactory.closeConnection(conn, ps, rs);
         }
@@ -110,20 +122,24 @@ public class UsuarioDAO {
     // Listar todos os usuarios
     public List todosUsuarios() throws Exception {
         try {
-            ps = conn.prepareStatement("SELECT * FROM tb_cadastros");
+            ps = conn.prepareStatement("SELECT * FROM tb_usuario");
             rs = ps.executeQuery();
-            List<Usuario> list = new ArrayList<Usuario>();
+            
+            List<Usuario> usuarios = new ArrayList<Usuario>();
             while (rs.next()) {
-                int id = rs.getInt(1);
+                String cpf = rs.getString(1);
                 String nome = rs.getString(2);
                 String senha = rs.getString(3);
-                list.add(new Usuario(id, nome, senha));
+                usuarios.add(new Usuario(cpf, nome, senha));
             }
-            return list;
+            return usuarios;
+            
         } catch (SQLException sqle) {
-            throw new Exception(sqle);
+        	 throw new Exception("Erro ao listar usuarios: " + sqle.getMessage());
         } finally {
             ConnectionFactory.closeConnection(conn, ps, rs);
         }
     }
 }
+
+
