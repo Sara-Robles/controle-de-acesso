@@ -7,6 +7,8 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
 import model.UsuarioDAO;
+import util.Arduino;
+
 import java.awt.*;
 
 public class Controle extends JPanel {
@@ -21,9 +23,12 @@ public class Controle extends JPanel {
 
     private Color colorBtn = Color.decode("#8464c6");
     private Font fontTexto = new Font("Loma", Font.PLAIN, 18);
-    private Font fontBtn = new Font("Loma", Font.BOLD, 16);
-
+    
     public Controle() {
+    	Arduino arduino = new Arduino("ttyUSB0");
+    	//Arduino arduino = new Arduino("ttyUSB1");
+    	
+    	
     	setBorder(new EmptyBorder(5, 5, 5, 5));
         setBackground(new Color(21, 20, 27));
         setLayout(null);
@@ -33,36 +38,36 @@ public class Controle extends JPanel {
         JLabel lblCpfControle = new JLabel("CPF:");
         lblCpfControle.setForeground(Color.WHITE);
         lblCpfControle.setFont(fontTexto);
-        lblCpfControle.setBounds(253, 24, 66, 30);
+        lblCpfControle.setBounds(277, 29, 54, 30);
         add(lblCpfControle);
         
         txtCpf = new JTextField();
         txtCpf.setFont(fontTexto);
-        txtCpf.setBounds(203, 66, 157, 30);
+        txtCpf.setBounds(226, 71, 157, 30);
         limitarCaracteres(txtCpf, 11);       
         add(txtCpf);
         
 
         // Senha
-        lblSenha = new JLabel("Digite sua senha:");
+        lblSenha = new JLabel("Senha:");
         lblSenha.setFont(fontTexto);
         lblSenha.setForeground(Color.WHITE);
-        lblSenha.setBounds(471, 24, 149, 30);
+        lblSenha.setBounds(462, 29, 63, 30);
         add(lblSenha);
 
         txtSenha = new JPasswordField();
         txtSenha.setFont(fontTexto);
-        txtSenha.setBounds(477, 66, 136, 30);
+        txtSenha.setBounds(425, 71, 136, 30);
         limitarCaracteres(txtSenha, 6);
         add(txtSenha);
         
       
         // Botão Limpar Campos
         btnLimpar = new JButton("Limpar Campos");
-        btnLimpar.setFont(fontBtn);
+        btnLimpar.setFont( new Font("Loma", Font.BOLD, 14));
         btnLimpar.setBackground(new Color(40, 39, 46));
         btnLimpar.setForeground(Color.WHITE);
-        btnLimpar.setBounds(636, 134, 169, 30);
+        btnLimpar.setBounds(597, 72, 136, 30);
         btnLimpar.addActionListener(e -> {
         	limparCampos();
         });
@@ -71,18 +76,19 @@ public class Controle extends JPanel {
         
         // Status Acesso
         txtStatusAcesso = new JTextArea();
-        txtStatusAcesso.setBounds(278, 215, 272, 75);
+        txtStatusAcesso.setBounds(333, 229, 149, 30);
         txtStatusAcesso.setFont(fontTexto);
         txtStatusAcesso.setForeground(Color.BLACK);
         txtStatusAcesso.setBackground(Color.WHITE);
+        txtStatusAcesso.setEditable(false);
         add(txtStatusAcesso);
 
         
         btnLiberarAcesso = new JButton("Liberar Acesso");
-        btnLiberarAcesso.setFont(fontBtn);
+        btnLiberarAcesso.setFont( new Font("Loma", Font.BOLD, 18));
         btnLiberarAcesso.setBackground(colorBtn);
         btnLiberarAcesso.setForeground(Color.BLACK);
-        btnLiberarAcesso.setBounds(316, 129, 196, 40);
+        btnLiberarAcesso.setBounds(322, 150, 172, 40);
         
         // Listener para click no botão
         btnLiberarAcesso.addActionListener(e -> {
@@ -104,13 +110,19 @@ public class Controle extends JPanel {
     				boolean check = dao.readSenha(cpf, senha);
     				
     				if(check) {
-    					txtStatusAcesso.setText("Acesso liberado!");
+    					txtStatusAcesso.setText(" Acesso liberado!");
+    					txtStatusAcesso.setBackground(Color.decode("#A1EEBD"));
     					txtCpf.setText("");
     			    	txtSenha.setText("");
-    				} else 
-    					txtStatusAcesso.setText("Acesso negado!");
-    				
-    				
+    			    	
+    			    	arduino.setComando(true);
+    				} else {
+    					arduino.setComando(false);
+    					txtStatusAcesso.setText(" Acesso negado!");
+    					txtStatusAcesso.setBackground(Color.decode("#C96868"));
+    					
+    				}
+    					
     			} catch (Exception e1) {
     				JOptionPane.showMessageDialog(null,e1.getMessage());
     			}

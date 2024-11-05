@@ -4,57 +4,35 @@ import java.io.IOException;
 import com.fazecast.jSerialComm.SerialPort; 
 
 public class Arduino {
-	private static Integer comando = -1;
-	
-    public static void main(String[] args) throws IOException, InterruptedException
-    {
-    	
-    	
-        // Configura porta
-        SerialPort sp = SerialPort.getCommPort("ttyUSB0");
+    private boolean comando;
+    private SerialPort sp;
+
+    public Arduino(String portDescription) {
+        sp = SerialPort.getCommPort(portDescription);
         sp.setComPortParameters(9600, 8, 1, 0);
         sp.setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 0);
 
-        // Abre porta
         if (sp.openPort())
-            System.out.println("Porta aberta com sucesso!");
+            System.out.println("Arduino conectado!");
         else {
-            System.out.println("Não foi possível abrir a porta.");
-            return;
+            System.out.println("Não foi possível conectar a porta.");
         }
-
-        	// Acesso Liberado
-        	if(comando == 1) {
-        		
-        		sp.getOutputStream().write('1');
-        		Thread.sleep(800); 
-        		sp.getOutputStream().write('0'); 
-        		Thread.sleep(800);
-        		
-        	} else { // Acesso Negado
-        		sp.getOutputStream().write('1');
-        		Thread.sleep(800); 
-        		sp.getOutputStream().write('0'); 
-        		Thread.sleep(800);
-        		
-        	}
-        		
-        
-            
-          
-        
-
-        sp.closePort(); // Fecha porta
-
     }
 
-    public void recebeAcesso(Integer bin) {
-    	if(bin == 1) 
-    		comando = 1;
-    	else
-    		comando = 0;
+    public void setComando(boolean comando) {
+        this.comando = comando;
+        try {
+            if (comando) 
+                sp.getOutputStream().write('1');
+            else 
+                sp.getOutputStream().write('0');
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    
-  
+
+    public void close() {
+        sp.closePort();
+    }
 
 }

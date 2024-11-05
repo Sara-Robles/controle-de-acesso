@@ -17,7 +17,9 @@ public class Interface extends JFrame {
         setSize(850, 400);
         setTitle("Sistema de Cadastro e Controle de Usuários");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        setResizable(false);
+        setLocationRelativeTo(null);
+        
         tbPannel = new JTabbedPane();
         tbPannel.setSize(858, 376);
         setContentPane(tbPannel);
