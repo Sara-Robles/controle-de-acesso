@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import util.Usuario;
 
 public class UsuarioDAO {
@@ -28,18 +30,27 @@ public class UsuarioDAO {
 
     // CREATE
     public void create(Usuario usuario) throws Exception {
-    	if (usuario == null)
-            throw new Exception("O valor passado não pode ser nulo.");
         try {
-
-            String SQL = "INSERT INTO tb_usuario (cpf, nome, senha) VALUES (?, ?, ?)";
-            
-            ps = conn.prepareStatement(SQL);
-            ps.setString(1, usuario.getCpf());
-            ps.setString(2, usuario.getNome());
-            ps.setString(3, usuario.getSenha());
-            ps.executeUpdate();
-
+        	// Verifcar se usuário já existe
+        	String checkSQL = "SELECT COUNT(*) FROM tb_usuario WHERE cpf=?";
+        	ps = conn.prepareStatement(checkSQL);
+        	ps.setString(1, usuario.getCpf());
+        	rs = ps.executeQuery();
+        	
+        	if(rs.next()) {
+        		throw new Exception("Usuário já existe.");
+        	} else { 
+        		// Inserir novo usuário
+                String SQL = "INSERT INTO tb_usuario (cpf, nome, senha) VALUES (?, ?, ?)";
+                
+                ps = conn.prepareStatement(SQL);
+                ps.setString(1, usuario.getCpf());
+                ps.setString(2, usuario.getNome());
+                ps.setString(3, usuario.getSenha());
+                ps.executeUpdate();
+        	}
+        	
+        	
         } catch (SQLException sqle) {
             throw new Exception("Erro ao inserir dados: " + sqle);
         } finally {
@@ -49,23 +60,27 @@ public class UsuarioDAO {
     }
 
     // UPDATE
-    public void update(Usuario usuario) throws Exception {
-        if (usuario == null)
-            throw new Exception("O valor passado nao pode ser nulo.");
-        try {
+    public int update(Usuario usuario) throws Exception {
+    	int result;
+    	try {
             String SQL = "UPDATE tb_usuario SET nome=?, senha=? WHERE cpf=?";
             
             ps = conn.prepareStatement(SQL);
             ps.setString(1, usuario.getNome());
             ps.setString(2, usuario.getSenha());
             ps.setString(3, usuario.getCpf());
-            ps.executeUpdate();
+            result = ps.executeUpdate();
+            
+            if (result == 0) {
+                throw new Exception("Nenhum usuário encontrado.");
+            }
             
         } catch (SQLException sqle) {
             throw new Exception("Erro ao alterar dados: " + sqle);
         } finally {
             ConnectionFactory.closeConnection(conn, ps);
         }
+    	return result;
     }
 
     // DELETE
@@ -107,7 +122,7 @@ public class UsuarioDAO {
                 String senha = rs.getString("senha");
                 usuario = new Usuario(cpf, nome, senha);
             } else {
-                throw new Exception("Usuário não encontrado.");
+            	throw new Exception("Usuário não encontrado.");
             }
            
             return usuario;
@@ -118,27 +133,32 @@ public class UsuarioDAO {
             ConnectionFactory.closeConnection(conn, ps, rs);
         }
     }
-
-    // Listar todos os usuarios
-    public List todosUsuarios() throws Exception {
-        try {
-            ps = conn.prepareStatement("SELECT * FROM tb_usuario");
-            rs = ps.executeQuery();
-            
-            List<Usuario> usuarios = new ArrayList<Usuario>();
-            while (rs.next()) {
-                String cpf = rs.getString(1);
-                String nome = rs.getString(2);
-                String senha = rs.getString(3);
-                usuarios.add(new Usuario(cpf, nome, senha));
+    
+        
+        public boolean readSenha(String cpf, String senhaInput) throws Exception {
+            try {
+                String SQL = "SELECT senha FROM tb_usuario WHERE cpf=?";
+                String senha;
+                
+                ps = conn.prepareStatement(SQL);
+                ps.setString(1, cpf);
+                rs = ps.executeQuery(); 
+                
+              
+                if (rs.next()) {
+                    senha = rs.getString("senha");
+                } else {
+                	throw new Exception("Usuário não encontrado.");
+                }
+                
+                return senha.equals(senhaInput) ? true : false;
+                
+            } catch (SQLException sqle) {
+            	throw new Exception("Erro ao procurar usuario: " + sqle.getMessage());
+            } finally {
+                ConnectionFactory.closeConnection(conn, ps, rs);
             }
-            return usuarios;
-            
-        } catch (SQLException sqle) {
-        	 throw new Exception("Erro ao listar usuarios: " + sqle.getMessage());
-        } finally {
-            ConnectionFactory.closeConnection(conn, ps, rs);
-        }
+
     }
 }
 

@@ -3,7 +3,7 @@ package util;
 public class Usuario {
 
     // Atributos
-    private String nome, senha, cpf;
+    private String cpf, nome, senha;
 
     // Construtores
     public Usuario() {
