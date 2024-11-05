@@ -37,7 +37,7 @@ public class UsuarioDAO {
         	ps.setString(1, usuario.getCpf());
         	rs = ps.executeQuery();
         	
-        	if(rs.next()) {
+        	if(rs.next() && rs.getInt(1) > 0) {
         		throw new Exception("Usuário já existe.");
         	} else { 
         		// Inserir novo usuário
@@ -72,7 +72,7 @@ public class UsuarioDAO {
             result = ps.executeUpdate();
             
             if (result == 0) {
-                throw new Exception("Nenhum usuário encontrado.");
+                throw new Exception("Usuário não encontrado.");
             }
             
         } catch (SQLException sqle) {

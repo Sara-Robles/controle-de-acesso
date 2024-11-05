@@ -26,7 +26,7 @@ public class Controle extends JPanel {
     
     public Controle() {
     	Arduino arduino = new Arduino("ttyUSB0");
-    	//Arduino arduino = new Arduino("ttyUSB1");
+    	//Arduino arduino = new Arduino("");
     	
     	
     	setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -139,7 +139,7 @@ public class Controle extends JPanel {
     	txtCpf.setText("");
     	txtSenha.setText("");
     	txtStatusAcesso.setText("");
-    	
+    	txtStatusAcesso.setBackground(Color.WHITE);
     }
     
     // Limitar caracteres de Inputs

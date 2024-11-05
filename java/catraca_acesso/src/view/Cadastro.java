@@ -32,7 +32,7 @@ public class Cadastro extends JPanel {
         lblTitulo = new JLabel("Cadastro de Usuários");
         lblTitulo.setForeground(Color.WHITE);
         lblTitulo.setFont(new Font("Loma", Font.BOLD, 26));
-        lblTitulo.setBounds(270, 20, 294, 30);
+        lblTitulo.setBounds(283, 20, 271, 30);
         add(lblTitulo);
 
         // Nome
@@ -136,7 +136,7 @@ public class Cadastro extends JPanel {
 					
 					if (dao.update(usuario) != 0) { // verifica se usuário foi encontrado
 						limparCampos();
-						JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
+						JOptionPane.showMessageDialog(null, "Usuário atualizado com sucesso!");
 					}
 					
 					
