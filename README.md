@@ -16,7 +16,8 @@ O aplicativo tem como objetivo cadastrar e controlar o acesso de usuários, com 
 ## ✔️ Funcionalidades
 
 - **Cadastro de Perfis**: Permite o cadastro, atualização e exclusão de perfis de usuários. O sistema suporta o cadastro de múltiplas pessoas.
-- **Controle de Acesso**: Solicita os dados do usuário necessários para confirmar se ele possui cadastro e acesso autorizado, caso possua a cancela levanta.
+- **Controle de Acesso**: Solicita os dados do usuário necessários para confirmar se ele possui cadastro e se o acesso é autorizado.
+- **Protótipo de Cancela:** Caso o acesso seja autorizado, uma luz de led verde se acende e a cancela sobe, caso o acesso seja negado uma luz de led vermelha se acende e a cancela continua fechada.
 
 ## :hammer_and_wrench: Tecnologias Utilizadas
 
