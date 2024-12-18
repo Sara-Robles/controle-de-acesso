@@ -44,11 +44,3 @@ O aplicativo tem como objetivo cadastrar e controlar o acesso de usuários, com 
 
 <img src="https://github.com/Sara-Robles/controle-de-acesso/blob/main/imagens/arduino-fisico.jpg" width="300px" alt="Arduino">
 </div>
-
-<div align="center">
-
-## ⬇️ Baixe o app!
-
-
-
-</div>
