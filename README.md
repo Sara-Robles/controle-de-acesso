@@ -6,7 +6,7 @@
 
 <a href="https://github.com/Sara-Robles/controle-de-acesso"></a>
 
-O projeto "Controle de Acesso" é um aplicativo desktop para Windows/Linux. Desenvolvido em Java e integrado com Arduino, utilizando o padrão de projeto MVC e o padrão DAO (Data Access Object) para a camada de dados e MySQL como SGBD. 
+O projeto "Controle de Acesso" é um aplicativo desktop para Windows/Linux. Desenvolvido em Java e integrado com Arduino, utilizando o padrão de projeto MVC e o padrão DAO (Data Access Object) para a camada de dados e MySQL como DBMS. 
 
 O aplicativo tem como objetivo cadastrar e controlar o acesso de usuários, com um protótipo de cancela/catraca que só abre caso haja a confirmação de que o indivíduo está autorizado a acessar o local.
 
