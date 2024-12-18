@@ -33,15 +33,15 @@ O aplicativo tem como objetivo cadastrar e controlar o acesso de usuários, com 
 
 ### Cadastro de Pessoas
 
-<img src="https://github.com/Sara-Robles/controle-de-acesso/blob/main/imagens/cadastro.jpg" width="300px" alt="Tela Inicial">  
+<img src="https://github.com/Sara-Robles/controle-de-acesso/blob/main/imagens/cadastro.jpg" width="500px" alt="Cadastro">  
 
 ### Controle de acesso
 
-<img src="https://github.com/Sara-Robles/controle-de-acesso/blob/main/imagens/controle.jpg" width="300px" alt="Tela Inicial">
+<img src="https://github.com/Sara-Robles/controle-de-acesso/blob/main/imagens/controle.jpg" width="500px" alt="Controle">
 
 ### Arduino Físico
 
-<img src="https://github.com/Sara-Robles/controle-de-acesso/blob/main/imagens/arduino-fisico.jpg" width="300px" alt="Tela Inicial">
+<img src="https://github.com/Sara-Robles/controle-de-acesso/blob/main/imagens/arduino-fisico.jpg" width="300px" alt="Arduino">
 </div>
 
 <div align="center">
