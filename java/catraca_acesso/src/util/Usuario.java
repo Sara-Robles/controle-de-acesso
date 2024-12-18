@@ -1,31 +1,31 @@
-package br.edu.fatec.util;
+package util;
 
 public class Usuario {
 
-    //Atributos
-    int id;
-    String nome, senha;
+    // Atributos
+    private String cpf, nome, senha;
 
-    //Construtor vazio
+    // Construtores
     public Usuario() {
     }
 
-    //Construtor com parâmetros
-    public Usuario(int id, String nome, String senha) {
-        this.id = id;
-        this.nome = nome;
+    public Usuario(String cpf, String nome, String senha) {
+    	this.cpf = cpf;
+    	this.nome = nome;
         this.senha = senha;
     }
 
-    //Getters e Setters
-    public int getId() {
-        return id;
+    // Getters e Setters
+
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
+   
     public String getNome() {
         return nome;
     }
@@ -33,7 +33,8 @@ public class Usuario {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
+    
+ 
     public String getSenha() {
         return senha;
     }
@@ -41,12 +42,12 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
+    
     @Override
     public String toString() {
         return "Usuario{" +
-                "id=" + id +
                 ", nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
                 '}';
     }
 }

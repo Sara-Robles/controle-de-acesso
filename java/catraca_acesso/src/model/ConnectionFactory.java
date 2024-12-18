@@ -1,6 +1,10 @@
-package br.edu.fatec.util;
+package model;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 
 public class ConnectionFactory {
 
@@ -8,7 +12,7 @@ public class ConnectionFactory {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            String url = "jdbc:mysql://localhost/cadastroaluno";
+            String url = "jdbc:mysql://localhost/db_sistemacadastro";
             String username = "root";
             String password = "";
 
@@ -45,16 +49,6 @@ public class ConnectionFactory {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        try {
-            Connection conn = ConnectionFactory.getConnection();
-            System.out.println("Conexão bem sucedida.");
-        } catch (Exception e1) {
-            // TODO: handle exception
-            System.out.println("Conexão falhou.");
-            throw new Exception(e1.getMessage());
-
-        }
-    }
+  
 }
 
