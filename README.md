@@ -4,9 +4,7 @@
 
 </div>
 
-<a href="https://github.com/Sara-Robles/controle-de-acesso">
- <img src="https://github.com/Sara-Robles/controle-de-acesso/blob/main/imagens/logo.png" width="250px" alt="Logo do aplicativo" align="right"> 
-</a>
+<a href="https://github.com/Sara-Robles/controle-de-acesso"></a>
 
 O projeto "Controle de Acesso" é um aplicativo desktop para Windows/Linux. Desenvolvido em Java e integrado com Arduino, utilizando o padrão de projeto MVC e o padrão DAO (Data Access Object) para a camada de dados e MySQL como SGBD. 
 
@@ -33,22 +31,17 @@ O aplicativo tem como objetivo cadastrar e controlar o acesso de usuários, com 
 
 <div align="center">
 
-### Home e Cadastro de Pessoas
+### Cadastro de Pessoas
 
-<img src="https://github.com/gabriellabueno/saude-em-dia/blob/main/imagens/home.jpeg" width="300px" alt="Tela Inicial">  
+<img src="https://github.com/Sara-Robles/controle-de-acesso/blob/main/imagens/cadastro.jpeg" width="300px" alt="Tela Inicial">  
 
-<img src="https://github.com/gabriellabueno/saude-em-dia/blob/main/imagens/cadastro.jpg" width="300px" alt="Tela de Cadastro">  
+### Controle de acesso
 
-<img src="https://github.com/gabriellabueno/saude-em-dia/blob/main/imagens/pessoas-cadastradas.jpg" width="300px" alt="Tela de Pessoas Cadastradas">  
-    
-<img src="https://github.com/gabriellabueno/saude-em-dia/blob/main/imagens/atualizar-cadastro.jpg" width="300px" alt="Tela de Atualização de Cadastro">  
+<img src="https://github.com/Sara-Robles/controle-de-acesso/blob/main/imagens/controle.jpeg" width="300px" alt="Tela Inicial">
 
-### Dicas de Saúde
+### Arduino Físico
 
-<img src="https://github.com/gabriellabueno/saude-em-dia/blob/main/imagens/dica-saude.jpg" width="300px"  alt="Tela de Dicas de Saúde">  
-
-<img src="https://github.com/gabriellabueno/saude-em-dia/blob/main/imagens/referencias.jpg" width="300px" alt="Popup com Referências">  
-
+<img src="https://github.com/Sara-Robles/controle-de-acesso/blob/main/imagens/arduino-fisico.jpeg" width="300px" alt="Tela Inicial">
 </div>
 
 <div align="center">
